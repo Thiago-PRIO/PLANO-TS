@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plano T&amp;S</title>
+<meta name="description" content="Plano de estudos para o estágio em Trading &amp; Shipping">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#E8ECEE">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0E1A21">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Plano T&amp;S">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #E8ECEE;
+    --surface: #F6F8F9;
+    --ink: #132430;
+    --muted: #55656F;
+    --line: #CBD3D8;
+    --accent: #8F540A;
+    --fill: #CB8622;
+    --on-fill: #1A1104;
+    --danger: #8A2B1E;
+    --font: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #0E1A21;
+      --surface: #15252E;
+      --ink: #E2E8EB;
+      --muted: #94A4AD;
+      --line: #283A44;
+      --accent: #E4A647;
+      --fill: #D9962F;
+      --on-fill: #1A1104;
+      --danger: #E27A66;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.45;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    -webkit-tap-highlight-color: transparent;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: 22px 16px 56px; }
+  button, input, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Painel do topo: régua de calado + leitura */
+  .hero h1 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+  }
+  .board {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    align-items: stretch;
+    margin-top: 18px;
+  }
+  .gauge {
+    position: relative;
+    display: grid;
+    grid-template-columns: 34px 30px;
+    gap: 6px;
+    height: 188px;
+  }
+  .hull {
+    position: relative;
+    border: 2px solid var(--ink);
+    border-radius: 3px 3px 12px 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .hull .fill {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 0%;
+    background: var(--fill);
+    border-top: 2px solid var(--ink);
+    transition: height 0.6s cubic-bezier(.3,.7,.2,1);
+  }
+  .hull .fill.empty { border-top-color: transparent; }
+  .hull::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 9px;
+    background: repeating-linear-gradient(to top, transparent 0, transparent calc(10% - 1.5px), var(--ink) calc(10% - 1.5px), var(--ink) 10%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .scale { position: relative; }
+  .scale span {
+    position: absolute;
+    left: 0;
+    transform: translateY(50%);
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: 75%;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .readout { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+  .days {
+    margin: 0;
+    font-size: clamp(60px, 19vw, 96px);
+    font-weight: 800;
+    font-stretch: 112%;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .days-label { margin: 8px 0 0; font-size: 16px; font-weight: 500; }
+  .days-label .muted { color: var(--muted); font-weight: 400; display: block; }
+  .tally { margin: 0; border-top: 1px solid var(--line); padding-top: 10px; }
+  .tally .pct { font-size: 22px; font-weight: 700; font-stretch: 100%; font-variant-numeric: tabular-nums; }
+  .tally .of { display: block; font-size: 14px; color: var(--muted); }
+
+  .warn {
+    margin: 18px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--danger);
+    background: var(--surface);
+    font-size: 14px;
+  }
+
+  /* Fases */
+  .phase { margin-top: 40px; }
+  .ph-head {
+    display: grid;
+    grid-template-columns: 46px 1fr auto;
+    align-items: end;
+    gap: 10px;
+  }
+  .ph-num {
+    font-size: 54px;
+    line-height: 0.8;
+    font-weight: 800;
+    font-stretch: 62%;
+    color: var(--ink);
+  }
+  .ph-num.loop { font-size: 40px; font-stretch: 100%; font-weight: 500; line-height: 1; }
+  .ph-head h2 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.1; }
+  .ph-period { margin: 3px 0 0; font-size: 14px; color: var(--muted); }
+  .now { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .now::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--fill);
+    margin: 0 6px 1px 8px;
+    vertical-align: middle;
+  }
+  .ph-count {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    padding-bottom: 2px;
+  }
+  .ph-count.full { color: var(--accent); }
+  .ph-bar {
+    height: 4px;
+    margin: 12px 0 0;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .ph-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--fill);
+    transition: width 0.5s ease;
+  }
+
+  .items {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .item {
+    display: grid;
+    grid-template-columns: 1fr 52px;
+    border-top: 1px solid var(--line);
+  }
+  .item:first-child { border-top: 0; }
+  .row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+    min-height: 60px;
+    padding: 15px 4px 15px 14px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  .box {
+    width: 28px; height: 28px;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    background: var(--surface);
+    margin-top: -1px;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .box svg { width: 18px; height: 18px; fill: none; stroke: var(--on-fill); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+  .cb:checked + .box { background: var(--fill); border-color: var(--fill); }
+  .cb:checked + .box svg { opacity: 1; }
+  .cb:focus-visible + .box { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .row:active .box { transform: scale(0.9); }
+
+  .txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding-top: 2px; }
+  .t { font-size: 16.5px; font-weight: 500; line-height: 1.32; }
+  .s { font-size: 14px; color: var(--muted); line-height: 1.35; }
+  .when { font-size: 13px; color: var(--accent); font-weight: 500; }
+  .when:empty { display: none; }
+  .preview {
+    margin-top: 6px;
+    padding-left: 10px;
+    border-left: 2px solid var(--fill);
+    font-size: 14px;
+    color: var(--muted);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: pre-line;
+  }
+  .preview:empty { display: none; }
+  .item.done .t { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--muted); }
+
+  .note-btn {
+    position: relative;
+    width: 52px;
+    min-height: 60px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: grid;
+    place-items: start center;
+    padding-top: 14px;
+  }
+  .note-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .note-btn .dot {
+    position: absolute;
+    top: 12px; right: 11px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--fill);
+    border: 2px solid var(--surface);
+    display: none;
+  }
+  .item.has-note .note-btn .dot { display: block; }
+  .note-btn[aria-expanded="true"] { color: var(--ink); }
+
+  .note { grid-column: 1 / -1; padding: 0 14px 16px 56px; }
+  .note textarea {
+    display: block;
+    width: 100%;
+    min-height: 96px;
+    resize: vertical;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 1.45;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+  .note textarea::placeholder { color: var(--muted); opacity: 0.8; }
+  .note-hint { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
+
+  /* Zerar */
+  .reset { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 20px; }
+  .btn {
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn.quiet { color: var(--danger); background: transparent; border-color: transparent; padding: 0 4px; }
+  .btn.danger { background: var(--danger); border-color: var(--danger); color: var(--surface); }
+  .confirm {
+    padding: 16px;
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  .confirm p { margin: 0 0 12px; font-weight: 600; }
+  .check-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .check-inline input { width: 22px; height: 22px; accent-color: var(--danger); margin: 0; }
+  .actions { display: flex; gap: 10px; margin-top: 12px; }
+  .actions .btn { flex: 1; }
+  .foot { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  [hidden] { display: none !important; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>Plano de estudos para Trading &amp; Shipping</h1>
+    <div class="board">
+      <div class="gauge" aria-hidden="true">
+        <div class="hull"><div class="fill empty" id="fill"></div></div>
+        <div class="scale" id="scale"></div>
+      </div>
+      <div class="readout">
+        <div>
+          <p class="days" id="days">–</p>
+          <p class="days-label"><span id="days-word">dias</span> <span class="muted" id="days-target">até 1º de fevereiro de 2027</span></p>
+        </div>
+        <p class="tally" aria-live="polite">
+          <span class="pct" id="pct">0%</span> concluído
+          <span class="of" id="of">0 de 0 itens</span>
+        </p>
+      </div>
+    </div>
+    <p class="warn" id="warn" hidden>Este navegador não está deixando salvar. O que você marcar vale só enquanto a página estiver aberta.</p>
+  </header>
+
+  <div id="phases"></div>
+
+  <section class="reset">
+    <button class="btn quiet" type="button" id="reset-open">Zerar progresso</button>
+    <div class="confirm" id="reset-box" hidden>
+      <p>Desmarcar todos os itens?</p>
+      <label class="check-inline"><input type="checkbox" id="reset-notes"> Apagar também as anotações</label>
+      <div class="actions">
+        <button class="btn" type="button" id="reset-cancel">Cancelar</button>
+        <button class="btn danger" type="button" id="reset-ok">Zerar</button>
+      </div>
+    </div>
+    <p class="foot">O progresso fica salvo neste aparelho.</p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var PHASES = [
+    { id: "f1", mark: "1", title: "Base", period: "Outubro e novembro", items: [
+      { id: "new-map", t: "Ler The New Map", s: "Daniel Yergin" },
+      { id: "risco-futuros", t: "Futuros (Brent ICE)", s: "Gestão de risco" },
+      { id: "risco-swaps", t: "Swaps", s: "Gestão de risco" },
+      { id: "risco-opcoes", t: "Opções", s: "Gestão de risco" },
+      { id: "risco-hedge", t: "Hedge e risco de base", s: "Gestão de risco" },
+      { id: "pl-conceito", t: "Conceito: objetivo e restrições", s: "Programação linear" },
+      { id: "pl-solver", t: "Exercícios no Excel Solver", s: "Programação linear" },
+      { id: "agradecer", t: "Mandar mensagem de agradecimento ao chefe de trading" }
+    ]},
+    { id: "f2", mark: "2", title: "Aplicação", period: "Dezembro", items: [
+      { id: "prize-inicio", t: "Começar The Prize", s: "Daniel Yergin" },
+      { id: "pulp", t: "Programação linear em Python (PuLP)" },
+      { id: "otimizador", t: "Construir otimizador de cargas", s: "Comprador, frete e diferencial para maximizar netback" },
+      { id: "stopford", t: "Shipping: capítulos de tanker do Maritime Economics", s: "Martin Stopford" },
+      { id: "pedir-15", t: "Pedir 15 minutos ao chefe para mostrar o otimizador" }
+    ]},
+    { id: "f3", mark: "3", title: "Fechamento", period: "Janeiro", items: [
+      { id: "prize-fim", t: "Terminar The Prize", s: "Daniel Yergin" },
+      { id: "quest", t: "Ler The Quest", s: "Daniel Yergin" },
+      { id: "smil", t: "Ler livro do Vaclav Smil", s: "Confirmar qual com o chefe" },
+      { id: "gas-br", t: "Gás: básico do mercado brasileiro" },
+      { id: "getting-yes", t: "Negociação: Getting to Yes", s: "Fisher e Ury" },
+      { id: "revisao", t: "Revisão final", s: "Como trading, operações, shipping e gás se conectam" }
+    ]},
+    { id: "cont", mark: "∞", loop: true, title: "Contínuo", period: "Sem fase fixa", items: [
+      { id: "mercado", t: "Acompanhar Brent, frete e Hormuz", s: "Toda semana" },
+      { id: "performance", t: "Manter o trabalho na Performance forte" },
+      { id: "feedback", t: "Pedir feedback à minha chefe sobre o processo" }
+    ]}
+  ];
+
+  var KEY = "plano-ts-v1";
+  var TARGET = { y: 2027, m: 1, d: 1 };
+  var state = { done: {}, notes: {} };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var warn = $("warn");
+
+  /* Armazenamento */
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        state.done = (parsed && parsed.done) || {};
+        state.notes = (parsed && parsed.notes) || {};
+      }
+      localStorage.setItem(KEY + "-teste", "1");
+      localStorage.removeItem(KEY + "-teste");
+    } catch (e) {
+      warn.hidden = false;
+    }
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+      warn.hidden = true;
+    } catch (e) {
+      warn.hidden = false;
+    }
+  }
+
+  /* Datas */
+  function daysLeft() {
+    var now = new Date();
+    var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    var target = Date.UTC(TARGET.y, TARGET.m, TARGET.d);
+    return Math.round((target - today) / 86400000);
+  }
+  function currentPhase() {
+    var now = new Date();
+    var y = now.getFullYear(), m = now.getMonth();
+    if (y < 2026 || (y === 2026 && m <= 10)) return "f1";
+    if (y === 2026 && m === 11) return "f2";
+    if (y === 2027 && m === 0) return "f3";
+    return null;
+  }
+  function fmtDate(ts) {
+    try {
+      return new Date(ts).toLocaleDateString("pt-BR", { day: "numeric", month: "short" }).replace(".", "");
+    } catch (e) {
+      return "";
+    }
+  }
+  function renderDays() {
+    var n = daysLeft();
+    var days = $("days"), word = $("days-word"), target = $("days-target");
+    if (n > 0) {
+      days.textContent = String(n);
+      word.textContent = n === 1 ? "dia" : "dias";
+      target.textContent = "até 1º de fevereiro de 2027";
+    } else if (n === 0) {
+      days.textContent = "Hoje";
+      word.textContent = "começa o estágio";
+      target.textContent = "1º de fevereiro de 2027";
+    } else {
+      days.textContent = "Já";
+      word.textContent = "começou";
+      target.textContent = "Estágio desde 1º de fevereiro de 2027";
+    }
+  }
+
+  /* Montagem */
+  var PEN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M14 8l3 3"/></svg>';
+  var CHECK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function build() {
+    var scale = $("scale");
+    [0, 20, 40, 60, 80, 100].forEach(function (v) {
+      var sp = document.createElement("span");
+      sp.style.bottom = v + "%";
+      sp.textContent = v;
+      scale.appendChild(sp);
+    });
+
+    var now = currentPhase();
+    var html = PHASES.map(function (p) {
+      var items = p.items.map(function (it) {
+        return '<li class="item" data-id="' + it.id + '">' +
+          '<label class="row">' +
+            '<input type="checkbox" class="cb">' +
+            '<span class="box" aria-hidden="true">' + CHECK + '</span>' +
+            '<span class="txt"><span class="t">' + esc(it.t) + '</span>' +
+              (it.s ? '<span class="s">' + esc(it.s) + '</span>' : '') +
+              '<span class="when"></span><span class="preview"></span></span>' +
+          '</label>' +
+          '<button class="note-btn" type="button" aria-expanded="false" aria-controls="n-' + it.id + '" aria-label="Anotação: ' + esc(it.t) + '">' + PEN + '<span class="dot"></span></button>' +
+          '<div class="note" id="n-' + it.id + '" hidden>' +
+            '<textarea rows="3" placeholder="Duas ou três ideias que ficaram…" aria-label="Anotação: ' + esc(it.t) + '"></textarea>' +
+            '<p class="note-hint">Salva sozinho enquanto você escreve.</p>' +
+          '</div>' +
+        '</li>';
+      }).join("");
+      return '<section class="phase" id="' + p.id + '" aria-labelledby="h-' + p.id + '">' +
+        '<div class="ph-head">' +
+          '<span class="ph-num' + (p.loop ? ' loop' : '') + '" aria-hidden="true">' + p.mark + '</span>' +
+          '<div><h2 id="h-' + p.id + '">' + (p.loop ? '' : '<span class="sr">Fase ' + p.mark + ': </span>') + esc(p.title) + '</h2>' +
+          '<p class="ph-period">' + esc(p.period) + (now === p.id ? '<span class="now">agora</span>' : '') + '</p></div>' +
+          '<p class="ph-count" data-count></p>' +
+        '</div>' +
+        '<div class="ph-bar" aria-hidden="true"><span data-bar></span></div>' +
+        '<ul class="items">' + items + '</ul>' +
+      '</section>';
+    }).join("");
+    $("phases").innerHTML = html;
+
+    // Preenche as anotações salvas
+    PHASES.forEach(function (p) {
+      p.items.forEach(function (it) {
+        var li = document.querySelector('[data-id="' + it.id + '"]');
+        li.querySelector("textarea").value = state.notes[it.id] || "";
+      });
+    });
+  }
+
+  function paintItem(li) {
+    var id = li.getAttribute("data-id");
+    var done = !!state.done[id];
+    var note = state.notes[id] || "";
+    var open = li.querySelector(".note-btn").getAttribute("aria-expanded") === "true";
+    li.querySelector(".cb").checked = done;
+    li.classList.toggle("done", done);
+    li.classList.toggle("has-note", !!note);
+    li.querySelector(".when").textContent = done && typeof state.done[id] === "number" ? "Concluído em " + fmtDate(state.done[id]) : "";
+    li.querySelector(".preview").textContent = open ? "" : note;
+  }
+
+  function refresh() {
+    var total = 0, totalDone = 0;
+    PHASES.forEach(function (p) {
+      var sec = $(p.id);
+      var n = p.items.length, d = 0;
+      p.items.forEach(function (it) {
+        if (state.done[it.id]) d++;
+        paintItem(sec.querySelector('[data-id="' + it.id + '"]'));
+      });
+      total += n; totalDone += d;
+      var count = sec.querySelector("[data-count]");
+      count.textContent = d + "/" + n;
+      count.setAttribute("aria-label", d + " de " + n + " concluídos");
+      count.classList.toggle("full", d === n);
+      sec.querySelector("[data-bar]").style.width = (n ? (d / n) * 100 : 0) + "%";
+    });
+    var pct = total ? Math.round((totalDone / total) * 100) : 0;
+    $("pct").textContent = pct + "%";
+    $("of").textContent = totalDone + " de " + total + " itens";
+    var fill = $("fill");
+    fill.style.height = pct + "%";
+    fill.classList.toggle("empty", pct === 0 || pct === 100);
+  }
+
+  /* Interação */
+  var timers = {};
+  var phasesEl = $("phases");
+
+  phasesEl.addEventListener("change", function (e) {
+    if (!e.target.classList.contains("cb")) return;
+    var id = e.target.closest(".item").getAttribute("data-id");
+    if (e.target.checked) state.done[id] = Date.now();
+    else delete state.done[id];
+    save();
+    refresh();
+  });
+
+  phasesEl.addEventListener("click", function (e) {
+    var btn = e.target.closest(".note-btn");
+    if (!btn) return;
+    var li = btn.closest(".item");
+    var panel = li.querySelector(".note");
+    var opening = panel.hidden;
+    panel.hidden = !opening;
+    btn.setAttribute("aria-expanded", opening ? "true" : "false");
+    paintItem(li);
+    if (opening) li.querySelector("textarea").focus();
+  });
+
+  phasesEl.addEventListener("input", function (e) {
+    if (e.target.tagName !== "TEXTAREA") return;
+    var li = e.target.closest(".item");
+    var id = li.getAttribute("data-id");
+    var v = e.target.value;
+    if (v.trim()) state.notes[id] = v;
+    else delete state.notes[id];
+    li.classList.toggle("has-note", !!v.trim());
+    clearTimeout(timers[id]);
+    timers[id] = setTimeout(save, 300);
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") save();
+    else { renderDays(); refresh(); }
+  });
+  window.addEventListener("pagehide", save);
+
+  /* Zerar */
+  var openBtn = $("reset-open"), box = $("reset-box");
+  openBtn.addEventListener("click", function () {
+    box.hidden = false;
+    openBtn.hidden = true;
+    $("reset-notes").checked = false;
+    $("reset-cancel").focus();
+  });
+  $("reset-cancel").addEventListener("click", function () {
+    box.hidden = true;
+    openBtn.hidden = false;
+    openBtn.focus();
+  });
+  $("reset-ok").addEventListener("click", function () {
+    state.done = {};
+    if ($("reset-notes").checked) {
+      state.notes = {};
+      Array.prototype.forEach.call(document.querySelectorAll(".note textarea"), function (t) { t.value = ""; });
+    }
+    save();
+    refresh();
+    box.hidden = true;
+    openBtn.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  /* Início */
+  load();
+  build();
+  renderDays();
+  refresh();
+  setInterval(renderDays, 60 * 60 * 1000);
+
+  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
+})();
+</script>
+</body>
+</html>
