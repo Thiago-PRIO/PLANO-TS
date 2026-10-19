@@ -63,7 +63,7 @@
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* Painel do topo: régua de calado + leitura */
-  .hero h1 {
+  .hero-h1 {
     margin: 0;
     font-size: 15px;
     font-weight: 600;
@@ -333,6 +333,125 @@
   .actions .btn { flex: 1; }
   .foot { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
 
+
+  /* Navegação inferior */
+  main { padding-bottom: 112px; }
+  .tabs {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  .tab {
+    position: relative;
+    min-height: 60px;
+    border: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .tab svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tab[aria-selected="true"] { color: var(--ink); }
+  .tab[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 30%; right: 30%;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--fill);
+  }
+
+  /* Mercado */
+  .mk-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .btn.small { min-height: 44px; padding: 0 16px; font-size: 15px; }
+  .block { margin-top: 34px; }
+  .block > h2 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.15; }
+  .lede { margin: 6px 0 0; font-size: 14px; color: var(--muted); max-width: 62ch; }
+  .list {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  .list > li { border-top: 1px solid var(--line); padding: 14px; }
+  .list > li:first-child { border-top: 0; }
+
+  .q { display: grid; grid-template-columns: 1fr auto; column-gap: 12px; row-gap: 2px; }
+  .q .name { font-size: 16.5px; font-weight: 600; line-height: 1.3; }
+  .q .meta { font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+  .q .val { grid-column: 2; grid-row: 1; text-align: right; font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; white-space: nowrap; }
+  .q .val small { font-size: 12.5px; font-weight: 500; color: var(--muted); margin-left: 3px; }
+  .q .chg { grid-column: 2; grid-row: 2; text-align: right; font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .q .chg.up { color: var(--accent); }
+  .q .spark { grid-column: 1 / -1; display: block; width: 100%; height: 36px; margin-top: 10px; }
+  .q .date { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .spark polyline { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .spark .ref { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+  .spark circle { fill: var(--fill); }
+
+  .tv h3 { margin: 0; font-size: 16.5px; font-weight: 600; }
+  .tv .meta { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); }
+  .tv-slot { height: 172px; margin-top: 8px; }
+  .tv-slot .msg { height: 100%; display: grid; place-items: center; text-align: center; font-size: 14px; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 12px; }
+
+  .msg-box { margin: 14px 0 0; padding: 12px 14px; border-left: 3px solid var(--danger); background: var(--surface); font-size: 14px; }
+  .msg-box.info { border-left-color: var(--fill); }
+  .empty { font-size: 14px; color: var(--muted); }
+
+  .form { margin-top: 14px; padding: 16px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  .field { display: block; margin-top: 16px; }
+  .field:first-child { margin-top: 0; }
+  .field > span { display: block; font-size: 14.5px; font-weight: 600; }
+  .field > em { display: block; font-style: normal; font-size: 13px; color: var(--muted); margin-top: 1px; }
+  .field input, .field textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    min-height: 48px;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+  .field textarea { min-height: 110px; resize: vertical; line-height: 1.45; }
+  .row-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .snap { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+  .snap b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .past { margin-top: 14px; }
+  .past summary { min-height: 44px; display: flex; align-items: center; font-weight: 600; cursor: pointer; }
+  .past-week { padding: 12px 0; border-top: 1px solid var(--line); font-size: 14.5px; }
+  .past-week h3 { margin: 0 0 4px; font-size: 15px; }
+  .past-week p { margin: 2px 0; white-space: pre-line; }
+  .past-week .k { color: var(--muted); }
+  .links { list-style: none; margin: 12px 0 0; padding: 0; }
+  .links li { border-top: 1px solid var(--line); }
+  .links li:first-child { border-top: 0; }
+  .links a { display: block; padding: 12px 0; min-height: 44px; color: var(--ink); text-decoration: none; }
+  .links a b { font-weight: 600; text-decoration: underline; text-decoration-color: var(--fill); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .links a span { display: block; font-size: 13px; color: var(--muted); }
+
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   [hidden] { display: none !important; }
 
@@ -343,8 +462,9 @@
 </head>
 <body>
 <main>
+<div id="view-plano">
   <header class="hero">
-    <h1>Plano de estudos para Trading &amp; Shipping</h1>
+    <h1 class="hero-h1">Plano de estudos para Trading &amp; Shipping</h1>
     <div class="board">
       <div class="gauge" aria-hidden="true">
         <div class="hull"><div class="fill empty" id="fill"></div></div>
@@ -378,7 +498,76 @@
     </div>
     <p class="foot">O progresso fica salvo neste aparelho.</p>
   </section>
+</div>
+
+<div id="view-mercado" hidden>
+  <header>
+    <h1 class="hero-h1">Mercado de petróleo e frete</h1>
+    <div class="mk-status">
+      <span id="mk-updated" aria-live="polite">Ainda não atualizado</span>
+      <button class="btn small" type="button" id="mk-refresh">Atualizar</button>
+    </div>
+  </header>
+
+  <section class="block" aria-labelledby="h-vivo">
+    <h2 id="h-vivo">Ao vivo</h2>
+    <p class="lede">Cotações da TradingView com alguns minutos de atraso. Só carregam com internet.</p>
+    <ul class="list">
+      <li class="tv"><h3>Brent</h3><p class="meta">Referência contínua da TradingView, acompanha o futuro da ICE</p><div class="tv-slot" data-symbol="TVC:UKOIL"></div></li>
+      <li class="tv"><h3>WTI</h3><p class="meta">Referência contínua da TradingView, acompanha o futuro da NYMEX</p><div class="tv-slot" data-symbol="TVC:USOIL"></div></li>
+      <li class="tv"><h3>Frete de tanker (BWET)</h3><p class="meta">ETF de futuros de frete: 90% TD3C, VLCC do Golfo Pérsico para a China, e 10% TD20, Suezmax da África Ocidental para a Europa</p><div class="tv-slot" data-symbol="AMEX:BWET"></div></li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="h-eia">
+    <h2 id="h-eia">Físico e fundamentos</h2>
+    <p class="lede">Fechamentos publicados pela EIA, o órgão de energia dos EUA. A EIA atualiza os preços diários uma vez por semana, então os números chegam com alguns dias de atraso.</p>
+    <div id="eia-setup" class="form" hidden>
+      <label class="field"><span>Chave gratuita da EIA</span><em>Cadastre seu e-mail em eia.gov/opendata/register.php e cole aqui a chave que chegar. Ela fica salva só neste aparelho.</em><input id="eia-key" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Cole a chave aqui"></label>
+      <div class="row-actions"><button class="btn" type="button" id="eia-save">Salvar chave</button></div>
+    </div>
+    <p class="msg-box" id="eia-err" hidden></p>
+    <ul class="list" id="eia-list" hidden></ul>
+  </section>
+
+  <section class="block" aria-labelledby="h-pw">
+    <h2 id="h-pw">Estreitos e rotas</h2>
+    <p class="lede">Navios-tanque que cruzaram cada estreito, média diária dos últimos 7 dias, comparada com a mesma semana do ano passado. O gráfico mostra os últimos 4 meses, e a linha tracejada marca o nível de um ano atrás. Dados do PortWatch, do FMI, com cerca de 5 dias de atraso.</p>
+    <p class="msg-box" id="pw-err" hidden></p>
+    <ul class="list" id="pw-list"><li class="empty">Toque em Atualizar para carregar.</li></ul>
+  </section>
+
+  <section class="block" aria-labelledby="h-diario">
+    <h2 id="h-diario">Diário da semana</h2>
+    <p class="lede" id="diary-week"></p>
+    <div class="form" id="diary-form">
+      <label class="field"><span>Dated Brent (US$/bbl)</span><em>Da Platts ou da Argus se tiver acesso, ou do valor citado em notícias</em><input data-f="dated" type="text" inputmode="decimal" placeholder="Ex.: 64,80"></label>
+      <label class="field"><span>Frete TD3C</span><em>Worldscale ou US$/t, do relatório de tanker da semana</em><input data-f="frete" type="text" placeholder="Ex.: WS 62"></label>
+      <label class="field"><span>Hormuz</span><input data-f="hormuz" type="text" placeholder="O que mudou no estreito"></label>
+      <label class="field"><span>O que mexeu no mercado</span><textarea data-f="nota" placeholder="Duas ou três frases: o que aconteceu e por que o preço reagiu assim"></textarea></label>
+      <p class="snap" id="diary-snap" hidden></p>
+      <div class="row-actions"><button class="btn" type="button" id="diary-fill">Puxar números do app</button></div>
+    </div>
+    <details class="past" id="diary-past" hidden><summary></summary><div id="diary-past-list"></div></details>
+  </section>
+
+  <section class="block" aria-labelledby="h-fontes">
+    <h2 id="h-fontes">Fontes</h2>
+    <ul class="links">
+      <li><a href="https://portwatch.imf.org/" target="_blank" rel="noopener"><b>IMF PortWatch</b><span>Mapa e séries dos estreitos e portos</span></a></li>
+      <li><a href="https://www.eia.gov/petroleum/" target="_blank" rel="noopener"><b>EIA Petroleum</b><span>Preços, estoques e o relatório semanal de quarta-feira</span></a></li>
+      <li><a href="https://amplifyetfs.com/bwet/" target="_blank" rel="noopener"><b>Amplify BWET</b><span>Carteira do ETF de frete, com os contratos TD3C e TD20</span></a></li>
+      <li><a href="https://www.tradingview.com/symbols/TVC-UKOIL/" target="_blank" rel="noopener"><b>TradingView Brent</b><span>Gráfico completo do Brent</span></a></li>
+    </ul>
+    <div class="row-actions" id="key-actions" hidden><button class="btn" type="button" id="eia-remove">Trocar chave da EIA</button></div>
+  </section>
+</div>
 </main>
+
+<nav class="tabs" role="tablist" aria-label="Seções">
+  <button class="tab" type="button" role="tab" id="tab-plano" aria-controls="view-plano" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg>Plano</button>
+  <button class="tab" type="button" role="tab" id="tab-mercado" aria-controls="view-mercado" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-6 4 3 7-8"/><path d="M16 5h4v4"/></svg>Mercado</button>
+</nav>
 
 <script>
 (function () {
@@ -411,7 +600,7 @@
       { id: "revisao", t: "Revisão final", s: "Como trading, operações, shipping e gás se conectam" }
     ]},
     { id: "cont", mark: "∞", loop: true, title: "Contínuo", period: "Sem fase fixa", items: [
-      { id: "mercado", t: "Acompanhar Brent, frete e Hormuz", s: "Toda semana" },
+      { id: "mercado", t: "Acompanhar Brent, frete e Hormuz", s: "Toda semana, na aba Mercado" },
       { id: "performance", t: "Manter o trabalho na Performance forte" },
       { id: "feedback", t: "Pedir feedback à minha chefe sobre o processo" }
     ]}
@@ -622,7 +811,7 @@
 
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "hidden") save();
-    else { renderDays(); refresh(); }
+    else { renderDays(); refresh(); if (typeof currentView !== "undefined" && currentView === "mercado") refreshMarket(false); }
   });
   window.addEventListener("pagehide", save);
 
@@ -652,12 +841,458 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+  /* ================= Mercado ================= */
+  var MK_KEY = "plano-ts-mercado-v1";
+  var DIARY_KEY = "plano-ts-diario-v1";
+  var EIA_KEY_STORE = "plano-ts-eia-chave";
+  var STALE_MS = 3 * 60 * 60 * 1000;
+  var PW_URL = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query";
+  var STRAITS = [
+    { key: "hormuz", re: /hormuz/i, name: "Estreito de Hormuz", role: "Saída do Golfo Pérsico", fallbackId: "chokepoint6" },
+    { key: "mandeb", re: /mandeb/i, name: "Bab el-Mandeb", role: "Entrada sul do Mar Vermelho" },
+    { key: "suez", re: /suez/i, name: "Canal de Suez", role: "Mar Vermelho ao Mediterrâneo" },
+    { key: "cabo", re: /good hope|cape/i, name: "Cabo da Boa Esperança", role: "Desvio quando o Mar Vermelho fecha" },
+    { key: "malaca", re: /malacca/i, name: "Estreito de Malaca", role: "Rota para China, Japão e Coreia" }
+  ];
+
+  function getJSON(k, fb) { try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch (e) { return fb; } }
+  function setJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function getKey() { try { return localStorage.getItem(EIA_KEY_STORE) || ""; } catch (e) { return ""; } }
+
+  var market = getJSON(MK_KEY, {}) || {};
+  var diary = getJSON(DIARY_KEY, {}) || {};
+
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function isoLocal(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function parseISO(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(s, n) { var d = parseISO(s); d.setDate(d.getDate() + n); return isoLocal(d); }
+  function shortDate(s) {
+    try { return parseISO(s).toLocaleDateString("pt-BR", { day: "numeric", month: "short" }).replace(".", ""); } catch (e) { return s; }
+  }
+  function num(v, dec) {
+    if (dec === undefined) dec = 2;
+    return v.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  }
+  function signed(v, dec) { return (v > 0 ? "+" : v < 0 ? "−" : "") + num(Math.abs(v), dec); }
+  function normDate(v) {
+    if (typeof v === "number") return new Date(v).toISOString().slice(0, 10);
+    return String(v).slice(0, 10);
+  }
+
+  function spark(values, ref) {
+    var v = values.filter(function (x) { return typeof x === "number" && isFinite(x); });
+    if (v.length < 2) return "";
+    var all = ref !== undefined ? v.concat([ref]) : v;
+    var min = Math.min.apply(null, all), max = Math.max.apply(null, all);
+    if (max === min) { max += 1; min -= 1; }
+    var W = 300, H = 36, padY = 3;
+    var y = function (x) { return (padY + (H - 2 * padY) * (1 - (x - min) / (max - min))).toFixed(1); };
+    var pts = v.map(function (x, i) { return (i * W / (v.length - 1)).toFixed(1) + "," + y(x); }).join(" ");
+    var refLine = ref !== undefined ? '<line class="ref" x1="0" x2="' + W + '" y1="' + y(ref) + '" y2="' + y(ref) + '"/>' : "";
+    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">' + refLine +
+      '<polyline points="' + pts + '"/></svg>';
+  }
+
+  /* ---- EIA ---- */
+  function eiaURL(key, route, freq, series, length) {
+    var q = "https://api.eia.gov/v2/" + route + "/data/?api_key=" + encodeURIComponent(key) +
+      "&frequency=" + freq + "&data[0]=value";
+    series.forEach(function (s) { q += "&facets[series][]=" + s; });
+    return q + "&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=" + length;
+  }
+  function eiaGet(url) {
+    return fetch(url).then(function (res) {
+      if (res.status === 401 || res.status === 403) throw new Error("chave");
+      if (!res.ok) throw new Error("http " + res.status);
+      return res.json();
+    }).then(function (j) {
+      if (j && j.error) throw new Error(/key/i.test(JSON.stringify(j.error)) ? "chave" : "api");
+      var out = {};
+      ((j && j.response && j.response.data) || []).forEach(function (r) {
+        var v = parseFloat(r.value);
+        if (!isFinite(v)) return;
+        (out[r.series] = out[r.series] || []).push([String(r.period).slice(0, 10), v]);
+      });
+      return out;
+    });
+  }
+  function fetchEIA() {
+    var key = getKey();
+    if (!key) return Promise.resolve(null);
+    var spot = eiaGet(eiaURL(key, "petroleum/pri/spt", "daily", ["RBRTE", "RWTC", "EER_EPMRU_PF4_RGC_DPG", "EER_EPD2DXL0_PF4_RGC_DPG"], 800));
+    var gas = eiaGet(eiaURL(key, "natural-gas/pri/fut", "daily", ["RNGWHHD"], 200)).catch(function () { return {}; });
+    var stocks = eiaGet(eiaURL(key, "petroleum/stoc/wstk", "weekly", ["WCESTUS1"], 40)).catch(function () { return {}; });
+    return Promise.all([spot, gas, stocks]).then(function (r) {
+      var series = {};
+      r.forEach(function (o) { Object.keys(o).forEach(function (k) { series[k] = o[k]; }); });
+      if (!series.RBRTE && !series.RWTC) throw new Error("vazio");
+      market.eia = { at: Date.now(), series: series };
+      setJSON(MK_KEY, market);
+      return market.eia;
+    });
+  }
+
+  function joinSeries(list, fn) {
+    var maps = list.map(function (s) { var m = {}; (s || []).forEach(function (r) { m[r[0]] = r[1]; }); return m; });
+    var out = [];
+    (list[0] || []).forEach(function (r) {
+      var vals = maps.map(function (m) { return m[r[0]]; });
+      if (vals.every(function (v) { return typeof v === "number"; })) out.push([r[0], fn.apply(null, vals)]);
+    });
+    return out;
+  }
+  function weekChange(desc) {
+    if (!desc || desc.length < 2) return null;
+    var target = addDays(desc[0][0], -7);
+    for (var i = 1; i < desc.length; i++) if (desc[i][0] <= target) return desc[0][1] - desc[i][1];
+    return null;
+  }
+
+  function eiaRows(series) {
+    var S = series || {};
+    var rows = [];
+    function add(name, meta, unit, desc, dec, n) {
+      if (!desc || !desc.length) return;
+      rows.push({ name: name, meta: meta, unit: unit, desc: desc, dec: dec, n: n || 90 });
+    }
+    add("Brent físico", "Spot FOB do Mar do Norte, a referência pública mais próxima do Dated Brent", "US$/bbl", S.RBRTE, 2);
+    add("WTI", "Spot em Cushing, Oklahoma", "US$/bbl", S.RWTC, 2);
+    add("Spread Brent–WTI", "Quanto o Brent paga a mais que o WTI", "US$/bbl", joinSeries([S.RBRTE, S.RWTC], function (b, w) { return b - w; }), 2);
+    add("Crack 3-2-1", "Margem de refino no Golfo dos EUA: 3 barris de petróleo viram 2 de gasolina e 1 de diesel", "US$/bbl",
+      joinSeries([S.RWTC, S.EER_EPMRU_PF4_RGC_DPG, S.EER_EPD2DXL0_PF4_RGC_DPG], function (w, g, d) { return (2 * g * 42 + d * 42 - 3 * w) / 3; }), 2);
+    add("Henry Hub", "Gás natural spot nos EUA", "US$/MMBtu", S.RNGWHHD, 2);
+    if (S.WCESTUS1) {
+      add("Estoques de petróleo dos EUA", "Comerciais, sem a reserva estratégica. Sai toda quarta-feira", "mi bbl",
+        S.WCESTUS1.map(function (r) { return [r[0], r[1] / 1000]; }), 1, 26);
+    }
+    return rows;
+  }
+
+  function renderEIA() {
+    var key = getKey();
+    $("eia-setup").hidden = !!key;
+    $("key-actions").hidden = !key;
+    var list = $("eia-list");
+    if (!key) { list.hidden = true; return; }
+    var rows = eiaRows(market.eia && market.eia.series);
+    if (!rows.length) { list.hidden = true; return; }
+    list.hidden = false;
+    list.innerHTML = rows.map(function (r) {
+      var last = r.desc[0];
+      var ch = weekChange(r.desc);
+      var asc = r.desc.slice(0, r.n).map(function (x) { return x[1]; }).reverse();
+      return '<li class="q">' +
+        '<span class="name">' + r.name + '</span>' +
+        '<span class="val">' + num(last[1], r.dec) + '<small>' + r.unit + '</small></span>' +
+        '<span class="meta">' + r.meta + '</span>' +
+        (ch !== null ? '<span class="chg' + (ch > 0 ? ' up' : '') + '">' + (ch > 0 ? "▲ " : ch < 0 ? "▼ " : "") + num(Math.abs(ch), r.dec) + ' na semana</span>' : '<span class="chg"></span>') +
+        spark(asc) +
+        '<span class="date">Dados até ' + shortDate(last[0]) + '</span>' +
+      '</li>';
+    }).join("");
+  }
+
+  /* ---- PortWatch ---- */
+  function pwQuery(params) {
+    var u = PW_URL + "?" + Object.keys(params).map(function (k) { return k + "=" + encodeURIComponent(params[k]); }).join("&");
+    return fetch(u).then(function (res) {
+      if (!res.ok) throw new Error("http " + res.status);
+      return res.json();
+    }).then(function (j) {
+      if (j && j.error) throw new Error("arcgis");
+      return (j.features || []).map(function (f) { return f.attributes || {}; });
+    });
+  }
+  function pwDiscover() {
+    return pwQuery({ where: "1=1", outFields: "portid,portname", returnDistinctValues: "true", returnGeometry: "false", f: "json" })
+      .then(function (rows) {
+        return STRAITS.map(function (s) {
+          var hit = rows.filter(function (r) { return s.re.test(r.portname || ""); })[0];
+          return hit ? { s: s, id: hit.portid } : (s.fallbackId ? { s: s, id: s.fallbackId } : null);
+        }).filter(Boolean);
+      })
+      .catch(function () { return [{ s: STRAITS[0], id: STRAITS[0].fallbackId }]; });
+  }
+  function pwSeries(id) {
+    var base = { where: "portid='" + id + "'", orderByFields: "date DESC", resultRecordCount: "400", returnGeometry: "false", f: "json" };
+    var withTank = Object.assign({}, base, { outFields: "date,n_tanker,n_total" });
+    var onlyTotal = Object.assign({}, base, { outFields: "date,n_total" });
+    return pwQuery(withTank).catch(function () { return pwQuery(onlyTotal); }).then(function (rows) {
+      var tank = rows.length && typeof rows[0].n_tanker === "number";
+      return {
+        tank: tank,
+        rows: rows.map(function (r) { return [normDate(r.date), tank ? r.n_tanker : r.n_total]; })
+          .filter(function (r) { return typeof r[1] === "number"; })
+      };
+    });
+  }
+  function fetchPW() {
+    return pwDiscover().then(function (found) {
+      return Promise.all(found.map(function (f) {
+        return pwSeries(f.id).then(function (d) { return { key: f.s.key, tank: d.tank, rows: d.rows }; })
+          .catch(function () { return null; });
+      }));
+    }).then(function (list) {
+      list = list.filter(function (x) { return x && x.rows.length; });
+      if (!list.length) throw new Error("vazio");
+      market.pw = { at: Date.now(), list: list };
+      setJSON(MK_KEY, market);
+      return market.pw;
+    });
+  }
+
+  function avgWindow(map, end, days) {
+    var sum = 0, n = 0;
+    for (var i = 0; i < days; i++) {
+      var v = map[addDays(end, -i)];
+      if (typeof v === "number") { sum += v; n++; }
+    }
+    return n >= Math.ceil(days * 0.6) ? sum / n : null;
+  }
+  function straitStats(item) {
+    var map = {};
+    item.rows.forEach(function (r) { map[r[0]] = r[1]; });
+    var last = item.rows[0][0];
+    var now = avgWindow(map, last, 7);
+    var ago = avgWindow(map, addDays(last, -364), 7);
+    var ma = [];
+    for (var i = 119; i >= 0; i--) {
+      var a = avgWindow(map, addDays(last, -i), 7);
+      if (a !== null) ma.push(a);
+    }
+    return { last: last, now: now, ago: ago, ma: ma };
+  }
+
+  function renderPW() {
+    var list = $("pw-list");
+    if (!market.pw || !market.pw.list) return;
+    var byKey = {};
+    market.pw.list.forEach(function (x) { byKey[x.key] = x; });
+    list.innerHTML = STRAITS.filter(function (s) { return byKey[s.key]; }).map(function (s) {
+      var item = byKey[s.key], st = straitStats(item);
+      var unit = item.tank ? "tanques/dia" : "navios/dia";
+      var cmp = "";
+      if (st.now !== null && st.ago !== null && st.ago > 0) {
+        var pct = (st.now / st.ago - 1) * 100;
+        cmp = '<span class="chg' + (pct > 0 ? ' up' : '') + '">' + signed(pct, 0) + '% vs 1 ano</span>';
+      } else {
+        cmp = '<span class="chg"></span>';
+      }
+      return '<li class="q">' +
+        '<span class="name">' + s.name + '</span>' +
+        '<span class="val">' + (st.now !== null ? num(st.now, 1) : "–") + '<small>' + unit + '</small></span>' +
+        '<span class="meta">' + s.role + (st.ago !== null ? '. Há um ano: ' + num(st.ago, 1) : '') + (item.tank ? '' : '. Todos os tipos de navio') + '</span>' +
+        cmp +
+        spark(st.ma, st.ago !== null ? st.ago : undefined) +
+        '<span class="date">Dados até ' + shortDate(st.last) + '</span>' +
+      '</li>';
+    }).join("");
+  }
+
+  /* ---- Status e atualização ---- */
+  var loading = false;
+  function renderStatus(text) {
+    if (text) { $("mk-updated").textContent = text; return; }
+    var times = [market.eia && market.eia.at, market.pw && market.pw.at].filter(Boolean);
+    if (!times.length) { $("mk-updated").textContent = "Ainda não atualizado"; return; }
+    var t = new Date(Math.max.apply(null, times));
+    var today = isoLocal(new Date()) === isoLocal(t);
+    var hm = pad(t.getHours()) + ":" + pad(t.getMinutes());
+    $("mk-updated").textContent = (today ? "Atualizado hoje às " : "Atualizado em " + shortDate(isoLocal(t)) + ", ") + hm +
+      (navigator.onLine === false ? ". Sem internet" : "");
+  }
+  function showErr(id, msg) { var el = $(id); el.textContent = msg || ""; el.hidden = !msg; }
+
+  function refreshMarket(force) {
+    if (loading) return;
+    var fresh = function (o) { return o && o.at && Date.now() - o.at < STALE_MS; };
+    var needEIA = getKey() && (force || !fresh(market.eia));
+    var needPW = force || !fresh(market.pw);
+    if (!needEIA && !needPW) return;
+    if (navigator.onLine === false) { renderStatus(); return; }
+    loading = true;
+    $("mk-refresh").disabled = true;
+    renderStatus("Atualizando…");
+    var jobs = [];
+    if (needEIA) jobs.push(fetchEIA().then(function () { showErr("eia-err"); renderEIA(); }).catch(function (e) {
+      showErr("eia-err", e.message === "chave"
+        ? "A EIA recusou a chave. Confira se colou a chave inteira, sem espaços, e salve de novo."
+        : "Não deu para buscar os dados da EIA agora. Os números abaixo são da última atualização. Tente de novo mais tarde.");
+    }));
+    if (needPW) jobs.push(fetchPW().then(function () { showErr("pw-err"); renderPW(); }).catch(function () {
+      showErr("pw-err", "Não deu para buscar os dados do PortWatch agora. Tente de novo mais tarde.");
+    }));
+    Promise.all(jobs).then(function () {
+      loading = false;
+      $("mk-refresh").disabled = false;
+      renderStatus();
+    });
+  }
+
+  $("mk-refresh").addEventListener("click", function () { refreshMarket(true); });
+  $("eia-save").addEventListener("click", function () {
+    var v = $("eia-key").value.trim();
+    if (!v) { $("eia-key").focus(); return; }
+    try { localStorage.setItem(EIA_KEY_STORE, v); } catch (e) {}
+    $("eia-key").value = "";
+    renderEIA();
+    refreshMarket(true);
+  });
+  $("eia-remove").addEventListener("click", function () {
+    try { localStorage.removeItem(EIA_KEY_STORE); } catch (e) {}
+    delete market.eia;
+    setJSON(MK_KEY, market);
+    showErr("eia-err");
+    renderEIA();
+    $("eia-key").focus();
+  });
+
+  /* ---- TradingView ---- */
+  var tvLoaded = false;
+  function loadTV() {
+    var slots = document.querySelectorAll(".tv-slot");
+    if (navigator.onLine === false) {
+      Array.prototype.forEach.call(slots, function (el) {
+        if (!el.querySelector("iframe")) el.innerHTML = '<div class="msg">Sem internet. As cotações ao vivo aparecem quando a conexão voltar.</div>';
+      });
+      return;
+    }
+    if (tvLoaded) return;
+    tvLoaded = true;
+    var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    Array.prototype.forEach.call(slots, function (el) {
+      el.innerHTML = "";
+      var wrap = document.createElement("div");
+      wrap.className = "tradingview-widget-container";
+      var inner = document.createElement("div");
+      inner.className = "tradingview-widget-container__widget";
+      wrap.appendChild(inner);
+      var sc = document.createElement("script");
+      sc.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+      sc.async = true;
+      sc.textContent = JSON.stringify({
+        symbol: el.getAttribute("data-symbol"),
+        width: "100%",
+        height: 172,
+        locale: "br",
+        dateRange: "1M",
+        colorTheme: dark ? "dark" : "light",
+        isTransparent: true,
+        autosize: false,
+        largeChartUrl: ""
+      });
+      sc.onerror = function () {
+        tvLoaded = false;
+        el.innerHTML = '<div class="msg">A TradingView não carregou. Toque em Atualizar para tentar de novo.</div>';
+      };
+      wrap.appendChild(sc);
+      el.appendChild(wrap);
+    });
+  }
+  window.addEventListener("online", function () { if (currentView === "mercado") { loadTV(); refreshMarket(false); } });
+
+  /* ---- Diário ---- */
+  function weekKey(d) {
+    var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+    return isoLocal(x);
+  }
+  var thisWeek = weekKey(new Date());
+  function weekLabel(k) { return "Semana de " + shortDate(k) + " a " + shortDate(addDays(k, 6)); }
+  function saveDiary() { setJSON(DIARY_KEY, diary); }
+  function snapText(sn) {
+    if (!sn) return "";
+    var parts = [];
+    if (sn.brent !== undefined) parts.push("Brent físico <b>" + num(sn.brent) + "</b>");
+    if (sn.wti !== undefined) parts.push("WTI <b>" + num(sn.wti) + "</b>");
+    if (sn.spread !== undefined) parts.push("spread <b>" + num(sn.spread) + "</b>");
+    if (sn.crack !== undefined) parts.push("crack 3-2-1 <b>" + num(sn.crack) + "</b>");
+    if (sn.hormuz !== undefined) parts.push("Hormuz <b>" + num(sn.hormuz, 1) + "</b> tanques/dia");
+    return parts.length ? "Números do app: " + parts.join(", ") + "." : "";
+  }
+  function renderDiary() {
+    $("diary-week").textContent = weekLabel(thisWeek) + ". Uma entrada por semana; na segunda-feira começa outra.";
+    var e = diary[thisWeek] || {};
+    Array.prototype.forEach.call(document.querySelectorAll("#diary-form [data-f]"), function (el) {
+      if (document.activeElement !== el) el.value = e[el.getAttribute("data-f")] || "";
+    });
+    var snap = $("diary-snap");
+    snap.innerHTML = snapText(e.snap);
+    snap.hidden = !e.snap;
+    var past = Object.keys(diary).filter(function (k) { return k !== thisWeek && diary[k] && hasContent(diary[k]); }).sort().reverse();
+    $("diary-past").hidden = !past.length;
+    $("diary-past").querySelector("summary").textContent = "Semanas anteriores (" + past.length + ")";
+    $("diary-past-list").innerHTML = past.map(function (k) {
+      var x = diary[k];
+      var line = function (label, v) { return v ? '<p><span class="k">' + label + ':</span> ' + esc(v) + '</p>' : ""; };
+      return '<div class="past-week"><h3>' + weekLabel(k) + '</h3>' +
+        line("Dated Brent", x.dated) + line("Frete TD3C", x.frete) + line("Hormuz", x.hormuz) + line("Mercado", x.nota) +
+        (x.snap ? '<p class="snap">' + snapText(x.snap) + '</p>' : "") + '</div>';
+    }).join("");
+  }
+  function hasContent(x) { return !!(x.dated || x.frete || x.hormuz || x.nota || x.snap); }
+  var diaryTimer;
+  $("diary-form").addEventListener("input", function (ev) {
+    var f = ev.target.getAttribute("data-f");
+    if (!f) return;
+    var e = diary[thisWeek] = diary[thisWeek] || {};
+    if (ev.target.value.trim()) e[f] = ev.target.value; else delete e[f];
+    clearTimeout(diaryTimer);
+    diaryTimer = setTimeout(saveDiary, 300);
+  });
+  $("diary-fill").addEventListener("click", function () {
+    var sn = {};
+    var rows = eiaRows(market.eia && market.eia.series);
+    rows.forEach(function (r) {
+      var v = r.desc[0][1];
+      if (r.name === "Brent físico") sn.brent = v;
+      else if (r.name === "WTI") sn.wti = v;
+      else if (r.name === "Spread Brent–WTI") sn.spread = v;
+      else if (r.name === "Crack 3-2-1") sn.crack = v;
+    });
+    var hz = market.pw && market.pw.list && market.pw.list.filter(function (x) { return x.key === "hormuz"; })[0];
+    if (hz) { var st = straitStats(hz); if (st.now !== null) sn.hormuz = st.now; }
+    if (!Object.keys(sn).length) {
+      var snap = $("diary-snap");
+      snap.textContent = "Ainda não há números carregados. Toque em Atualizar no topo desta aba e tente de novo.";
+      snap.hidden = false;
+      return;
+    }
+    var e = diary[thisWeek] = diary[thisWeek] || {};
+    e.snap = sn;
+    saveDiary();
+    renderDiary();
+  });
+
+  /* ---- Abas ---- */
+  var currentView = "plano";
+  function showView(v) {
+    currentView = v;
+    $("view-plano").hidden = v !== "plano";
+    $("view-mercado").hidden = v !== "mercado";
+    $("tab-plano").setAttribute("aria-selected", v === "plano" ? "true" : "false");
+    $("tab-mercado").setAttribute("aria-selected", v === "mercado" ? "true" : "false");
+    if (v === "mercado") {
+      thisWeek = weekKey(new Date());
+      renderStatus();
+      renderEIA();
+      renderPW();
+      renderDiary();
+      loadTV();
+      refreshMarket(false);
+    }
+    window.scrollTo(0, 0);
+  }
+  $("tab-plano").addEventListener("click", function () { if (location.hash) history.replaceState(null, "", location.pathname + location.search); showView("plano"); });
+  $("tab-mercado").addEventListener("click", function () { history.replaceState(null, "", "#mercado"); showView("mercado"); });
+
   /* Início */
   load();
   build();
   renderDays();
   refresh();
   setInterval(renderDays, 60 * 60 * 1000);
+  if (location.hash === "#mercado") showView("mercado");
 
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
     window.addEventListener("load", function () {

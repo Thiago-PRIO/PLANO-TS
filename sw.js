@@ -1,6 +1,6 @@
 // Service worker do Plano T&S: guarda os arquivos para abrir offline.
 // Ao mudar o index.html, troque a versão abaixo para forçar a atualização.
-const CACHE = "plano-ts-v1";
+const CACHE = "plano-ts-v2";
 const ARQUIVOS = [
   "./",
   "./index.html",
